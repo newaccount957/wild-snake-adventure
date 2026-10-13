@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Wild Snake Adventure — Complete Edition</title>
+<link rel="stylesheet" href="style.css">
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="wm" aria-hidden="true">TEAM <span>7</span></div>
+
+<!-- MAIN MENU -->
+<section id="main" class="screen active">
+  <div class="hero">
+    <div class="logo">🐍</div>
+    <h1>WILD <span>SNAKE</span><br>ADVENTURE</h1>
+    <p>Grow through three wild phases, dodge hazards, survive the hunt, and master every add-on.</p>
+    <div class="buttons">
+      <button class="btn" id="endlessBtn">♾️ ENDLESS MODE</button>
+      <button class="btn secondary" id="phaseBtn">PHASES</button>
+      <button class="btn secondary" id="boardBtn">🏆 LEADERBOARD</button>
+      <button class="btn secondary addonOpen">🧩 ADD-ONS</button>
+      <label class="volbox">🔊<input type="range" class="vol" min="0" max="100" value="70" aria-label="Volume"></label>
+    </div>
+    <div class="footer">Arrow Keys / WASD · Space = Pause · Swipe on touch screens</div>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="board" class="screen">
+  <div class="section board-section">
+    <div class="header">
+      <div class="eyebrow">ENDLESS MODE</div>
+      <h2>Leaderboard</h2>
+      <p>Top 10 scores saved on this device.</p>
+    </div>
+    <div id="boardList" class="board-list"></div>
+    <div class="buttons" style="margin-top:25px">
+      <button class="btn secondary" id="boardBack">← BACK</button>
+      <button class="btn" id="boardPlay">♾️ PLAY ENDLESS</button>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE SELECT -->
+<section id="phases" class="screen">
+  <div class="section">
+    <div class="header">
+      <div class="eyebrow">ADVENTURE</div>
+      <h2>Choose Your Phase</h2>
+      <p>Complete each phase to unlock the next one.</p>
+    </div>
+    <div id="phaseGrid" class="phase-grid"></div>
+    <div class="buttons" style="margin-top:25px">
+      <button class="btn secondary" id="phaseBack">← BACK</button>
+      <button class="btn secondary addonOpen">🧩 ADD-ONS</button>
+    </div>
+  </div>
+</section>
+
+<!-- ANIMAL SELECT -->
+<section id="animals" class="screen">
+  <div class="section">
+    <div class="header">
+      <div class="eyebrow">CHOOSE YOUR HERO</div>
+      <h2>Pick Your Animal</h2>
+      <p>Your animal determines the food you collect and your snake's pattern.</p>
+    </div>
+    <div id="animalGrid" class="animal-grid"></div>
+    <div class="buttons">
+      <button class="btn secondary" id="animalBack">← BACK</button>
+      <button class="btn" id="animalContinue">CONTINUE →</button>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="introScreen" class="screen">
+  <div class="intro">
+    <div id="introNum" class="intro-num">PHASE 1</div>
+    <h2 id="introTitle">EASY</h2>
+    <p id="introDescription"></p>
+    <div id="introGoal" class="goal"></div>
+  </div>
+</section>
+
+<!-- GAME -->
+<section id="gameScreen" class="screen">
+  <div class="game">
+    <div class="top">
+      <div>
+        <h2>🐍 Wild Snake</h2>
+        <small id="animalName">Dog</small>
+      </div>
+      <div class="btns">
+        <label class="volbox">🔊<input type="range" class="vol" min="0" max="100" value="70" aria-label="Volume"></label>
+        <button class="btn secondary small" id="pauseBtn">⏸ PAUSE</button>
+      </div>
+    </div>
+
+    <div class="hud">
+      <div class="hudbox"><small id="hudPhaseLbl">PHASE</small><b id="hudPhase">PHASE 1</b></div>
+      <div class="hudbox"><small>FOOD</small><b id="hudFood">0/10</b></div>
+      <div class="hudbox"><small id="hudLenLbl">LENGTH</small><b id="hudLength">3</b></div>
+      <div class="hudbox"><small id="hudTimeLbl">TIME</small><b id="hudTime">60</b></div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="canvas" width="384" height="384"></canvas>
+    </div>
+
+    <div class="controls">
+      <button class="control up" data-dir="up" aria-label="Up">▲</button>
+      <button class="control left" data-dir="left" aria-label="Left">◀</button>
+      <button class="control down" data-dir="down" aria-label="Down">▼</button>
+      <button class="control right" data-dir="right" aria-label="Right">▶</button>
+    </div>
+  </div>
+</section>
+
+<!-- PAUSE -->
+<div id="pauseOverlay" class="overlay">
+  <div class="overlay-card">
+    <div class="overlay-icon">⏸️</div>
+    <h2>PAUSED</h2>
+    <p>Your game is paused.</p>
+    <div class="buttons">
+      <button class="btn" id="resumeBtn">▶ RESUME</button>
+      <button class="btn secondary" id="pauseMenuBtn">MENU</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETE -->
+<div id="completeOverlay" class="overlay">
+  <div class="overlay-card">
+    <div class="overlay-icon">🏆</div>
+    <h2 id="completeTitle">PHASE COMPLETE</h2>
+    <p>Excellent! You survived the phase.</p>
+    <div id="completeStats" class="stats"></div>
+    <div class="buttons">
+      <button class="btn" id="nextBtn">CONTINUE</button>
+      <button class="btn secondary" id="completePhases">PHASES</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAILED -->
+<div id="failedOverlay" class="overlay">
+  <div class="overlay-card">
+    <div class="overlay-icon">⏰</div>
+    <h2>TIME'S UP</h2>
+    <p id="failedReason"></p>
+    <div id="failedStats" class="stats"></div>
+    <div class="buttons">
+      <button class="btn" id="retryFailed">↻ TRY AGAIN</button>
+      <button class="btn secondary" id="failedPhases">PHASES</button>
+    </div>
+  </div>
+</div>
+
+<!-- GAME OVER -->
+<div id="gameOverOverlay" class="overlay">
+  <div class="overlay-card">
+    <div class="overlay-icon" id="deathIcon">💥</div>
+    <div id="deathKind" class="death-kind hit">IMPACT</div>
+<h2 id="deathTitle">GAME OVER</h2>
+    <p id="deathReason"></p>
+    <div id="deathStats" class="stats"></div>
+    <div class="buttons">
+      <button class="btn" id="retryDeath">↻ RETRY</button>
+      <button class="btn secondary" id="deathBoard" style="display:none">🏆 LEADERBOARD</button>
+      <button class="btn secondary" id="deathPhases">PHASES</button>
+    </div>
+  </div>
+</div>
+
+<!-- PLAYER NAME -->
+<div id="nameOverlay" class="overlay">
+  <div class="overlay-card name-card">
+    <div class="overlay-icon">🐍</div>
+    <h2>WHO'S PLAYING?</h2>
+    <p>Enter your name. It will appear on the leaderboard.</p>
+    <input id="nameInput" class="name-input" type="text" maxlength="12" autocomplete="off" spellcheck="false" placeholder="Your name" aria-label="Player name">
+    <div id="nameErr" class="name-err" aria-live="polite"></div>
+    <div class="buttons">
+      <button class="btn secondary" id="nameCancel">CANCEL</button>
+      <button class="btn" id="nameOk">LET'S GO</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD-ONS -->
+<div id="addonOverlay" class="overlay">
+  <div class="overlay-card addon-card">
+    <div class="overlay-icon">🧩</div>
+    <h2>ADD-ONS</h2>
+    <p>Switch on extra difficulty for every phase. Each add-on you use adds a 25% score bonus.</p>
+    <div id="addonList" class="addon-list"></div>
+    <div class="buttons">
+      <button class="btn" id="addonClose">DONE</button>
+    </div>
+  </div>
+</div>
+
+<!-- VICTORY -->
+<div id="victoryOverlay" class="overlay victory">
+  <canvas id="confetti"></canvas>
+  <div class="overlay-card victory-card">
+    <div class="crown">👑</div>
+    <div class="vic-animal" id="vicAnimal">🐍</div>
+    <h2 class="vic-title">CONGRATULATIONS!</h2>
+    <p class="vic-sub" id="vicSub"></p>
+    <div class="rank" id="vicRank">WILD CHAMPION</div>
+    <div id="victoryStats" class="stats"></div>
+    <div class="buttons">
+      <button class="btn" id="victoryPlay">PLAY AGAIN</button>
+      <button class="btn secondary" id="victoryMenu">MAIN MENU</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING TIP TOAST -->
+<div id="tip" class="tip" role="status" aria-live="polite">
+  <span class="tip-ico" id="tipIco">🐍</span>
+  <span class="tip-txt" id="tipTxt">Nice move!</span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
